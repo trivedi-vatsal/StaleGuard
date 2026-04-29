@@ -1,0 +1,62 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#0A0A0B"/>
+  <g opacity="0.25">
+    <path d="M0 48H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 96H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 144H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 192H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 240H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 288H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 336H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 384H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 432H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 480H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 528H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M0 576H1200" stroke="white" stroke-opacity="0.08"/>
+    <path d="M48 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M96 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M144 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M192 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M240 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M288 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M336 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M384 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M432 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M480 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M528 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M576 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M624 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M672 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M720 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M768 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M816 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M864 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M912 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M960 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M1008 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M1056 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M1104 0V630" stroke="white" stroke-opacity="0.08"/>
+    <path d="M1152 0V630" stroke="white" stroke-opacity="0.08"/>
+  </g>
+  <rect x="80" y="88" width="1040" height="454" fill="#111113" stroke="rgba(255,255,255,0.12)"/>
+  <rect x="80" y="88" width="1040" height="2" fill="#C8F562"/>
+  <circle cx="112" cy="121" r="6" fill="#C8F562"/>
+  <text x="132" y="126" fill="#C8F562" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="600">StaleGuard</text>
+  <text x="132" y="168" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="16" letter-spacing="2">VITE · REACT · AZURE SWA</text>
+  <text x="132" y="258" fill="#F0EDE8" font-family="'Syne', sans-serif" font-size="86" font-weight="800">No stale</text>
+  <text x="132" y="336" fill="#C8F562" font-family="'Syne', sans-serif" font-size="86" font-weight="800">builds.</text>
+  <text x="132" y="404" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="24">One hook. One cache header.</text>
+  <text x="132" y="442" fill="#F0EDE8" font-family="'JetBrains Mono', monospace" font-size="24">Silent reload on tab focus.</text>
+  <rect x="132" y="480" width="252" height="54" fill="#C8F562"/>
+  <text x="165" y="514" fill="#0A0A0B" font-family="'JetBrains Mono', monospace" font-size="18" font-weight="600">USE THIS PATTERN →</text>
+  <rect x="724" y="186" width="300" height="224" fill="#18181C" stroke="rgba(255,255,255,0.12)"/>
+  <text x="748" y="220" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="16">LIVE DIAGNOSTICS</text>
+  <text x="748" y="270" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="16">status</text>
+  <text x="872" y="270" fill="#C8F562" font-family="'JetBrains Mono', monospace" font-size="16">fresh</text>
+  <text x="748" y="312" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="16">checks</text>
+  <text x="872" y="312" fill="#F0EDE8" font-family="'JetBrains Mono', monospace" font-size="16">01</text>
+  <text x="748" y="354" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="16">watched</text>
+  <text x="872" y="354" fill="#F0EDE8" font-family="'JetBrains Mono', monospace" font-size="16">/index.html</text>
+  <text x="748" y="396" fill="#8B8993" font-family="'JetBrains Mono', monospace" font-size="16">tag</text>
+  <text x="872" y="396" fill="#F0EDE8" font-family="'JetBrains Mono', monospace" font-size="16">etag / last-modified</text>
+</svg>

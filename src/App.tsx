@@ -3,6 +3,7 @@ import { useVersionCheck } from "./hooks/useVersionCheck";
 
 const projectName = "StaleGuard";
 const projectVersion = "0.1.0";
+const publishedUrl = "https://trivedi-vatsal.github.io/StaleGuard/";
 
 const flowSteps = [
   {
@@ -69,10 +70,32 @@ const edgeCases = [
 function App() {
   const versionCheck = useVersionCheck();
 
+  const sessionStatus =
+    versionCheck.status === "update-detected"
+      ? "new deploy!"
+      : versionCheck.status === "offline"
+        ? "offline"
+        : versionCheck.status === "missing-header"
+          ? "missing tag"
+          : versionCheck.status === "idle"
+            ? "waiting"
+            : "fresh";
+
+  const deployStatus =
+    versionCheck.status === "update-detected"
+      ? "New deployment detected"
+      : versionCheck.status === "offline"
+        ? "Offline or blocked"
+        : versionCheck.status === "missing-header"
+          ? "Missing cache tag header"
+          : "No deploy change";
+
   return (
     <>
-      <nav className="site-nav">
-        <div className="nav-logo">{projectName}</div>
+      <nav className="site-nav" aria-label="Primary">
+        <a className="nav-logo" href="#hero" aria-label="StaleGuard home">
+          {projectName}
+        </a>
         <ul className="nav-links">
           <li>
             <a href="#flow">How it works</a>
@@ -137,7 +160,7 @@ function App() {
         </section>
 
         <div className="section-label">Properties</div>
-        <table className="props-table">
+        <table className="props-table" aria-label="StaleGuard properties">
           <tbody>
             {properties.map(([label, value, isTag]) => (
               <tr key={label}>
@@ -156,7 +179,7 @@ function App() {
           <div className="section-label">Step 1 - staticwebapp.config.json</div>
           <div className="code-header">
             <span>public/staticwebapp.config.json</span>
-            <div className="code-dots">
+            <div className="code-dots" aria-hidden="true">
               <span />
               <span />
               <span />
@@ -179,7 +202,7 @@ function App() {
           <div className="section-label">Step 2 - useVersionCheck.ts</div>
           <div className="code-header">
             <span>src/hooks/useVersionCheck.ts</span>
-            <div className="code-dots">
+            <div className="code-dots" aria-hidden="true">
               <span />
               <span />
               <span />
@@ -225,7 +248,7 @@ export const useVersionCheck = () => {
           <div className="section-label">Step 3 - App.tsx</div>
           <div className="code-header">
             <span>src/App.tsx</span>
-            <div className="code-dots">
+            <div className="code-dots" aria-hidden="true">
               <span />
               <span />
               <span />
@@ -259,36 +282,32 @@ const App = () => {
             </div>
             <div>
               <div className="demo-label">Status</div>
-              <div className="demo-value">
-                {versionCheck.status === "update-detected"
-                  ? "new deploy!"
-                  : versionCheck.status === "offline"
-                    ? "offline"
-                    : versionCheck.status === "idle"
-                      ? "waiting"
-                      : "fresh"}
-              </div>
+              <div className="demo-value">{sessionStatus}</div>
             </div>
             <button
               id="run-check"
               type="button"
+              aria-label="Run deployment freshness check now"
               onClick={() => void versionCheck.runCheck("manual")}
             >
               Run check now
             </button>
           </div>
 
-          <div className="diag-panel">
+          <div className="diag-panel" aria-live="polite">
             <div className="diag-header">
               <div className="diag-title">Hook state</div>
               <div
                 className={`diag-status${
-                  versionCheck.status === "update-detected" ? " warn" : ""
+                  versionCheck.status === "update-detected"
+                    ? " warn"
+                    : versionCheck.status === "offline" ||
+                        versionCheck.status === "missing-header"
+                      ? " neutral"
+                      : ""
                 }`}
               >
-                {versionCheck.status === "update-detected"
-                  ? "New deployment detected"
-                  : "No deploy change"}
+                {deployStatus}
               </div>
             </div>
             <div className="diag-rows">
@@ -325,9 +344,9 @@ const App = () => {
         </section>
 
         <div className="section-label">Edge cases</div>
-        <div className="edge-grid">
+        <div className="edge-grid" role="list" aria-label="Edge cases">
           {edgeCases.map(([scenario, outcome]) => (
-            <div className="edge-cell" key={scenario}>
+            <div className="edge-cell" role="listitem" key={scenario}>
               <div className="edge-scenario">{scenario}</div>
               <div className="edge-outcome">{outcome}</div>
             </div>
@@ -338,14 +357,15 @@ const App = () => {
       </div>
 
       <footer className="site-footer">
-        <span>
-          © 2026 {projectName} · MIT
-        </span>
+        <span>© 2026 {projectName} · MIT</span>
         <div className="footer-right">
           <a href="https://vatsal.xyz/" target="_blank" rel="noreferrer">
             Vatsal Trivedi
           </a>
           <span>v{projectVersion}</span>
+          <a href={publishedUrl} target="_blank" rel="noreferrer">
+            Live site
+          </a>
         </div>
       </footer>
     </>

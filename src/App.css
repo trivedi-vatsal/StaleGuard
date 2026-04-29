@@ -25,6 +25,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
 }
 
 .nav-logo::before {
@@ -55,6 +56,16 @@
 .nav-links a:hover,
 .site-footer a:hover {
   color: var(--text);
+}
+
+.nav-links a:focus-visible,
+.btn-primary:focus-visible,
+.btn-ghost:focus-visible,
+#run-check:focus-visible,
+.site-footer a:focus-visible,
+.nav-logo:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .hero {
@@ -290,6 +301,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 10px 16px;
   background: var(--surface2);
   border: 1px solid var(--border);
@@ -367,6 +379,12 @@ code {
   border-color: rgba(251, 146, 60, 0.2);
 }
 
+.diag-status.neutral {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border2);
+}
+
 .diag-rows {
   display: grid;
   gap: 10px;
@@ -439,6 +457,7 @@ code {
 .footer-right {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .site-footer a {
@@ -607,8 +626,7 @@ code {
     min-width: calc(50% - 6px);
   }
 
-  .footer-right {
-    flex-wrap: wrap;
-    gap: 0.75rem 1rem;
+  .demo-bar > div:last-of-type {
+    min-width: 100%;
   }
 }

@@ -2,6 +2,8 @@
 
 This repo is a small Vite + React + TypeScript project that demonstrates silent deployment refreshes for stale tabs.
 
+![StaleGuard preview](public/og-image.svg)
+
 It is designed to work in two roles:
 
 - a testing ground for validating the focus-triggered version check pattern
@@ -24,6 +26,8 @@ StaleGuard describes the goal directly: it guards users from silently continuing
 - `src/hooks/useVersionCheck.ts`: production-oriented hook with `ETag` then `Last-Modified` fallback
 - `public/staticwebapp.config.json`: Azure Static Web Apps cache rule for `index.html`
 - `src/App.tsx`: article-style page plus a live diagnostics panel
+- `public/og-image.svg`: social preview/share image
+- `public/404.html`: fallback page for static hosting
 - `.github/workflows/deploy-pages.yml`: GitHub Pages deployment workflow
 
 ## Local development
@@ -39,6 +43,23 @@ For a more realistic static-host check:
 npm run build
 npm run preview
 ```
+
+## Test this locally
+
+1. Start the app with `npm run preview`.
+2. Open the preview URL in a browser tab.
+3. Confirm the diagnostics panel captures a baseline tag on first load.
+4. Make a visible change to the app, for example edit the hero copy in `src/App.tsx`.
+5. Run `npm run build` again.
+6. Refresh the preview server if needed, switch away from the tab, then focus the tab again.
+7. Confirm the page silently reloads when the tag changed.
+
+For offline behavior:
+
+1. Open the page once while connected.
+2. Disable network in devtools or disconnect your machine.
+3. Focus the tab again.
+4. Confirm the UI stays stable and only reports an offline state.
 
 ## Azure Static Web Apps behavior
 
@@ -66,16 +87,35 @@ That combination makes sure the browser asks for fresh headers on each focus che
 
 ## GitHub Pages publishing
 
-This repo includes a GitHub Actions workflow that builds the app and deploys `dist/` to GitHub Pages on every push to `master`.
+This repo includes a GitHub Actions workflow that builds the app and deploys `dist/` to GitHub Pages on every push to `main`.
 
 To enable it:
 
 1. Push this repo to GitHub.
 2. Open repository settings.
 3. Under Pages, set the source to GitHub Actions.
-4. Push to `master` or run the workflow manually.
+4. Push to `main` or run the workflow manually.
 
 The Vite config uses `base: "./"` so the built site can be served from a project subpath without rewriting asset URLs.
+
+## Hosting behavior
+
+### Azure Static Web Apps
+
+- Best fit for this pattern because `ETag` is typically present on `index.html`.
+- `public/staticwebapp.config.json` forces `Cache-Control: no-cache, no-store, must-revalidate` for `index.html`.
+- In practice the hook usually compares `ETag` first and falls back to `Last-Modified` only when needed.
+
+### GitHub Pages
+
+- Good for sharing the article and demo publicly.
+- `Last-Modified` fallback is more likely to be the header used here.
+- The included `404.html` gives the project a branded fallback page for static hosting.
+
+## Deploy URLs
+
+- Expected GitHub Pages URL: `https://trivedi-vatsal.github.io/StaleGuard/`
+- Azure Static Web Apps URL: add your generated production URL here after deployment
 
 ## Testing checklist
 
@@ -90,8 +130,11 @@ Also verify:
 - offline focus does not crash the app
 - multiple tabs refresh independently
 - missing `ETag` still works when `Last-Modified` is present
+- GitHub Pages still behaves correctly when only `Last-Modified` is available
+- mobile layout stays readable around 768px and 560px breakpoints
 
 ## Notes
 
 - The live diagnostics panel is intentionally visible in this POC so behavior is easy to verify.
 - In a production app, you can keep the hook exactly as-is and remove the visible diagnostics UI.
+- Optional analytics were intentionally left out so the demo stays dependency-free and privacy-light.
