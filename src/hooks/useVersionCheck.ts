@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type VersionCheckTrigger = "mount" | "focus" | "manual";
 type VersionCheckStatus =
@@ -18,8 +18,6 @@ type VersionCheckState = {
   status: VersionCheckStatus;
 };
 
-const resolveEntryUrl = () => new URL("index.html", document.baseURI);
-
 const formatTimestamp = () =>
   new Intl.DateTimeFormat(undefined, {
     dateStyle: "medium",
@@ -28,9 +26,12 @@ const formatTimestamp = () =>
 
 export const useVersionCheck = () => {
   const currentTag = useRef<string | null>(null);
-  const resolvedEntryUrl = resolveEntryUrl();
-  const entryUrl = resolvedEntryUrl.toString();
-  const entryPath = resolvedEntryUrl.pathname;
+  const inFlight = useRef(false);
+  const entryUrl = useMemo(
+    () => new URL("index.html", document.baseURI).toString(),
+    [],
+  );
+  const entryPath = useMemo(() => new URL(entryUrl).pathname, [entryUrl]);
   const [state, setState] = useState<VersionCheckState>({
     baselineTag: null,
     checksRun: 0,
@@ -41,6 +42,11 @@ export const useVersionCheck = () => {
   });
 
   const checkVersion = useCallback(async (trigger: VersionCheckTrigger) => {
+    // Tab-focus and visibility events can fire back-to-back for the same
+    // switch; skip a check that's already in flight instead of racing two
+    // fetches and risking a duplicate reload.
+    if (inFlight.current) return;
+    inFlight.current = true;
     try {
       const response = await fetch(entryUrl, {
         method: "HEAD",
@@ -93,22 +99,26 @@ export const useVersionCheck = () => {
         lastTrigger: trigger,
         status: "offline",
       }));
+    } finally {
+      inFlight.current = false;
     }
   }, [entryUrl]);
 
   useEffect(() => {
-    const initialCheck = window.setTimeout(() => {
-      void checkVersion("mount");
-    }, 0);
+    void checkVersion("mount");
 
     const onFocus = () => {
       void checkVersion("focus");
     };
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "visible") void checkVersion("focus");
+    };
 
     window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onVisibilityChange);
     return () => {
-      window.clearTimeout(initialCheck);
       window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, [checkVersion]);
 

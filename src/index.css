@@ -6,93 +6,63 @@
   padding: 0;
 }
 
-/* ─── Dark theme (default) ─────────────────────────────── */
+/* ─── Pulsar-style design tokens — "dark glow" ─────────── */
 :root {
   color-scheme: dark;
 
-  --bg: #201d1d;
-  --surface: #2a2525;
-  --surface2: #302c2c;
-  --border: rgba(253, 252, 252, 0.08);
-  --border2: #646262;
-  --text: #fdfcfc;
-  --muted: #9a9898;
+  --ink: #0a0a0f;
+  --ink-2: #0e0e16;
+  --panel: #13131d;
+  --panel-2: #181826;
 
-  --accent: #007aff;
-  --accent2: #0056b3;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
 
-  --success: #30d158;
-  --warning: #ff9f0a;
-  --danger: #ff3b30;
-  --blue-dim: rgba(0, 122, 255, 0.12);
-  --success-dim: rgba(48, 209, 88, 0.10);
-  --warning-dim: rgba(255, 159, 10, 0.10);
+  --fg: #f5f5f8;
+  --fg-2: #a0a0b4;
+  --fg-3: #82829a;
 
-  --mono: "Berkeley Mono", "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --brand: #8b5cf6;
+  --brand-bright: #a78bfa;
+  --accent: #22d3ee;
+  --accent-bright: #67e8f9;
 
-  --theme-toggle-bg: rgba(253, 252, 252, 0.07);
-  --theme-toggle-hover: rgba(253, 252, 252, 0.13);
-  --ambient-1: rgba(0, 122, 255, 0.10);
-  --ambient-2: rgba(253, 252, 252, 0.04);
-  --grid-line: rgba(253, 252, 252, 0.03);
-}
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+  --success-dim: rgba(52, 211, 153, 0.12);
+  --warning-dim: rgba(251, 191, 36, 0.12);
+  --brand-dim: rgba(139, 92, 246, 0.14);
 
-/* ─── Light theme ──────────────────────────────────────── */
-[data-theme="light"] {
-  color-scheme: light;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
-  --bg: #fdfcfc;
-  --surface: #f8f5f5;
-  --surface2: #ede9e9;
-  --border: rgba(15, 0, 0, 0.09);
-  --border2: #b0adad;
-  --text: #201d1d;
-  --muted: #6e6e73;
-
-  --accent: #007aff;
-  --accent2: #0056b3;
-
-  --success: #1d9e43;
-  --warning: #c47a00;
-  --danger: #c0392b;
-  --blue-dim: rgba(0, 122, 255, 0.10);
-  --success-dim: rgba(29, 158, 67, 0.10);
-  --warning-dim: rgba(196, 122, 0, 0.10);
-
-  --theme-toggle-bg: rgba(15, 0, 0, 0.06);
-  --theme-toggle-hover: rgba(15, 0, 0, 0.12);
-  --ambient-1: rgba(0, 122, 255, 0.10);
-  --ambient-2: rgba(32, 29, 29, 0.04);
-  --grid-line: rgba(15, 0, 0, 0.04);
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
-  /* background:
-    radial-gradient(circle at 12% -8%, var(--ambient-1), transparent 42%),
-    radial-gradient(circle at 88% 0%, var(--ambient-2), transparent 36%),
-    var(--bg); */
-  color: var(--text);
-  font-family: var(--mono);
+  background: var(--ink);
+  color: var(--fg);
+  font-family: var(--font-sans);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
-  transition: background 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  /* background-image:
-    linear-gradient(var(--grid-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px); */
-  background-size: 40px 40px;
-  pointer-events: none;
-  z-index: -1;
+::selection {
+  background: rgba(139, 92, 246, 0.4);
 }
 
 a {
@@ -113,9 +83,42 @@ select {
 
 code,
 pre {
-  font-family: var(--mono);
+  font-family: var(--font-mono);
 }
 
 #root {
   min-height: 100vh;
+}
+
+/* Gradient text — use on one word/phrase per heading */
+.text-gradient {
+  background: linear-gradient(100deg, var(--brand-bright) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Glassy panel */
+.glass {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Soft glow behind primary CTAs */
+.shadow-glow {
+  box-shadow:
+    0 0 24px rgba(139, 92, 246, 0.35),
+    0 0 64px rgba(34, 211, 238, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

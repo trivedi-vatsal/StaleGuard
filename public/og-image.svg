@@ -1,49 +1,67 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Warm near-black background -->
-  <rect width="1200" height="630" fill="#201d1d"/>
+  <defs>
+    <linearGradient id="og-accent-bar" x1="60" y1="56" x2="1140" y2="56">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="og-logo-grad" x1="86" y1="92" x2="106" y2="112">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="og-headline-grad" x1="96" y1="300" x2="520" y2="300">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="og-cta-grad" x1="96" y1="468" x2="350" y2="518">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Near-black background -->
+  <rect width="1200" height="630" fill="#0a0a0f"/>
 
   <!-- Main card -->
-  <rect x="60" y="56" width="1080" height="518" fill="#302c2c" stroke="#3e3939" stroke-width="1"/>
-  <!-- Blue top accent bar -->
-  <rect x="60" y="56" width="1080" height="3" fill="#007aff"/>
+  <rect x="60" y="56" width="1080" height="518" fill="#13131d" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <!-- Violet→cyan top accent bar -->
+  <rect x="60" y="56" width="1080" height="3" fill="url(#og-accent-bar)"/>
 
   <!-- Logo row -->
-  <circle cx="96" cy="104" r="6" fill="#007aff"/>
-  <text x="114" y="110" fill="#007aff" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="15" font-weight="600" letter-spacing="0.06em">StaleGuard</text>
+  <path d="M96 92L100.4 99.6L108 104L100.4 108.4L96 116L91.6 108.4L84 104L91.6 99.6L96 92Z" fill="url(#og-logo-grad)"/>
+  <text x="114" y="110" fill="#f5f5f8" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="17" font-weight="600" letter-spacing="-0.01em">StaleGuard</text>
 
   <!-- Eyebrow -->
-  <text x="96" y="158" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="12" letter-spacing="0.14em">VITE · REACT · AZURE SWA</text>
+  <text x="96" y="158" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="12" letter-spacing="0.14em">VITE · REACT · AZURE SWA</text>
 
   <!-- Headline -->
-  <text x="96" y="258" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="82" font-weight="700" letter-spacing="-0.02em">No stale</text>
-  <text x="96" y="338" fill="#007aff" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="82" font-weight="700" letter-spacing="-0.02em">builds.</text>
+  <text x="96" y="258" fill="#f5f5f8" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="80" font-weight="700" letter-spacing="-0.02em">No stale</text>
+  <text x="96" y="338" fill="url(#og-headline-grad)" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="80" font-weight="700" letter-spacing="-0.02em">builds.</text>
 
   <!-- Subtext -->
-  <text x="96" y="398" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="21">One hook. One cache header.</text>
-  <text x="96" y="432" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="21">Silent reload on tab focus.</text>
+  <text x="96" y="398" fill="#a0a0b4" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="20">One hook. One cache header.</text>
+  <text x="96" y="432" fill="#f5f5f8" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="20">Silent reload on tab focus.</text>
 
   <!-- CTA Button -->
-  <rect x="96" y="468" width="254" height="50" rx="4" fill="#007aff"/>
-  <text x="126" y="499" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="15" font-weight="600" letter-spacing="0.06em">USE THIS PATTERN →</text>
+  <rect x="96" y="468" width="254" height="50" rx="8" fill="url(#og-cta-grad)"/>
+  <text x="126" y="499" fill="#0a0a0f" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="15" font-weight="600" letter-spacing="0.06em">USE THIS PATTERN →</text>
 
   <!-- Right panel — diagnostics -->
-  <rect x="736" y="148" width="344" height="246" fill="#201d1d" stroke="#3e3939" stroke-width="1"/>
-  <rect x="736" y="148" width="344" height="2" fill="#007aff"/>
-  <text x="758" y="184" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="11" letter-spacing="0.12em">LIVE DIAGNOSTICS</text>
+  <rect x="736" y="148" width="344" height="246" fill="#0e0e16" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <rect x="736" y="148" width="344" height="2" fill="url(#og-accent-bar)"/>
+  <text x="758" y="184" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="11" letter-spacing="0.12em">LIVE DIAGNOSTICS</text>
 
-  <text x="758" y="228" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">status</text>
-  <text x="876" y="228" fill="#007aff" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">fresh</text>
+  <text x="758" y="228" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">status</text>
+  <text x="876" y="228" fill="#67e8f9" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">fresh</text>
 
-  <text x="758" y="264" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">checks</text>
-  <text x="876" y="264" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">01</text>
+  <text x="758" y="264" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">checks</text>
+  <text x="876" y="264" fill="#f5f5f8" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">01</text>
 
-  <text x="758" y="300" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">watched</text>
-  <text x="876" y="300" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">/index.html</text>
+  <text x="758" y="300" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">watched</text>
+  <text x="876" y="300" fill="#f5f5f8" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">/index.html</text>
 
-  <text x="758" y="336" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">method</text>
-  <text x="876" y="336" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">HEAD no-store</text>
+  <text x="758" y="336" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">method</text>
+  <text x="876" y="336" fill="#f5f5f8" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">HEAD no-store</text>
 
-  <text x="758" y="372" fill="#9a9898" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">tag</text>
-  <text x="876" y="372" fill="#fdfcfc" font-family="'Berkeley Mono', 'IBM Plex Mono', ui-monospace, monospace" font-size="14">ETag / Last-Modified</text>
+  <text x="758" y="372" fill="#82829a" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">tag</text>
+  <text x="876" y="372" fill="#f5f5f8" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="14">ETag / Last-Modified</text>
 </svg>
-
