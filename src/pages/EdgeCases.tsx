@@ -1,6 +1,6 @@
 import { PageHeader } from "../components/PageHeader";
 import { PageNav } from "../components/PageNav";
-import { DocsNav } from "../components/DocsNav";
+import { DocsShell } from "../components/DocsShell";
 import { findPage } from "../routes";
 
 const page = findPage("/edge-cases")!;
@@ -26,8 +26,7 @@ const edgeCases = [
 
 export function EdgeCases() {
   return (
-    <div className="container page">
-      <DocsNav current={page.path} />
+    <DocsShell current={page.path}>
       <PageHeader
         eyebrow={page.eyebrow}
         heading={page.heading}
@@ -44,6 +43,6 @@ export function EdgeCases() {
       </div>
 
       <PageNav current={page.path} />
-    </div>
+    </DocsShell>
   );
 }

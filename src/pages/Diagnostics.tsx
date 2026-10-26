@@ -1,6 +1,6 @@
 import { PageHeader } from "../components/PageHeader";
 import { PageNav } from "../components/PageNav";
-import { DocsNav } from "../components/DocsNav";
+import { DocsShell } from "../components/DocsShell";
 import { findPage } from "../routes";
 import type { useVersionCheck } from "../hooks/useVersionCheck";
 
@@ -40,8 +40,7 @@ export function Diagnostics({
         : "pill pill-accent";
 
   return (
-    <div className="container page">
-      <DocsNav current={page.path} />
+    <DocsShell current={page.path}>
       <PageHeader
         eyebrow={page.eyebrow}
         heading={page.heading}
@@ -109,6 +108,6 @@ export function Diagnostics({
       </div>
 
       <PageNav current={page.path} />
-    </div>
+    </DocsShell>
   );
 }

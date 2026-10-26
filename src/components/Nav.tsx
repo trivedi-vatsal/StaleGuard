@@ -1,25 +1,31 @@
 import { Logo } from "./Logo";
 
 const repoUrl = "https://github.com/trivedi-vatsal/StaleGuard";
-const docsEntryPath = "/how-it-works";
+
+const primaryLinks = [
+  { path: "/how-it-works", label: "How it works" },
+  { path: "/implementation", label: "Vite" },
+  { path: "/nextjs", label: "Next.js" },
+  { path: "/diagnostics", label: "Diagnostics" },
+];
 
 export function Nav({ route }: { route: string }) {
-  const isDocsActive = route !== "/";
-
   return (
     <nav className="site-nav" aria-label="Primary">
       <div className="container nav-inner">
         <Logo />
         <ul className="nav-links">
-          <li>
-            <a
-              href={`#${docsEntryPath}`}
-              aria-current={isDocsActive ? "page" : undefined}
-              className={isDocsActive ? "active" : undefined}
-            >
-              Docs
-            </a>
-          </li>
+          {primaryLinks.map((link) => (
+            <li key={link.path}>
+              <a
+                href={`#${link.path}`}
+                aria-current={route === link.path ? "page" : undefined}
+                className={route === link.path ? "active" : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
         </ul>
         <div className="nav-actions">
           <a
@@ -40,7 +46,7 @@ export function Nav({ route }: { route: string }) {
             </svg>
           </a>
           <a href="#/implementation" className="btn btn-primary btn-sm">
-            Use this pattern
+            Get started
           </a>
         </div>
       </div>
