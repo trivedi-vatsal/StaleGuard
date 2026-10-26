@@ -1,5 +1,6 @@
 import { WindowDots } from "../components/WindowDots";
 import { CodeCard } from "../components/CodeCard";
+import { RecipePicker } from "../components/RecipePicker";
 import { pages } from "../routes";
 
 const heroSnippet = `const tag = await fetch("index.html", {
@@ -11,9 +12,9 @@ if (tag !== baseline) {
   window.location.reload();
 }`;
 
-const agentGuideUrl = new URL("AGENT_GUIDE.md", document.baseURI).href;
+const llmsUrl = new URL("llms.txt", document.baseURI).href;
 
-const agentPrompt = `Fetch ${agentGuideUrl} and follow it to implement the StaleGuard silent-reload-on-stale-deploy pattern in this React project.`;
+const agentPrompt = `Fetch ${llmsUrl} for the doc index. Use AGENT_GUIDE.md for Vite + static host, or docs/nextjs-app-router.md for Next.js App Router (self-hosted). Implement the StaleGuard silent-reload-on-stale-deploy pattern for this project.`;
 
 const exploreCards = pages.filter((page) => page.path !== "/");
 
@@ -47,17 +48,20 @@ export function Home() {
           <br />
           <em>Silent reload on tab focus.</em> No banners, no polling,
           <br />
-          no user friction. Works with MSAL sessionStorage.
+          no user friction. sessionStorage-backed auth survives reload.
         </p>
         <div className="cta-row">
           <a href="#/implementation" className="btn btn-primary btn-lg">
-            Use this pattern
+            Vite recipe
+          </a>
+          <a href="#/nextjs" className="btn btn-secondary btn-lg">
+            Next.js recipe
           </a>
           <a href="#/diagnostics" className="btn btn-secondary btn-lg">
             Live diagnostics
           </a>
         </div>
-        <p className="hero-stack">Vite · React · Azure SWA</p>
+        <p className="hero-stack">Vite · Next.js · React</p>
 
         <div className="hero-panel-wrap">
           <div className="hero-panel glass">
@@ -107,8 +111,8 @@ export function Home() {
             </h2>
             <p className="lede">
               Drop this prompt into Claude Code, Cursor, or any agent that
-              can fetch URLs. It points at a self-contained guide that wires
-              up all three files for you - no copying code blocks by hand.
+              can fetch URLs. It points at llms.txt and the right recipe guide
+              (Vite or Next.js) — no copying code blocks by hand.
             </p>
             <div className="agent-tool-row">
               <span className="tool-pill">Claude Code</span>
@@ -121,6 +125,17 @@ export function Home() {
             <CodeCard name="Prompt for your AI coding agent" code={agentPrompt} />
           </div>
         </div>
+      </section>
+
+      <div className="divider" />
+
+      <section className="recipes-section">
+        <div className="subsection-label">Recipes</div>
+        <p className="lede recipes-lede">
+          Two first-class guides: static Vite on Azure SWA or GitHub Pages, and
+          self-hosted Next.js in Docker.
+        </p>
+        <RecipePicker />
       </section>
 
       <div className="divider" />

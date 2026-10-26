@@ -44,7 +44,7 @@ const properties = [
   ["Polling / timers", "no", true],
   ["Network cost", "1 HEAD request per tab focus", false],
   ["User interaction", "none required", true],
-  ["Auth impact", "None - MSAL uses sessionStorage, survives reload", false],
+  ["Auth impact", "None - sessionStorage-backed auth survives reload", false],
   ["Failure behaviour", "Silent - offline / errors swallowed", false],
 ] as const;
 

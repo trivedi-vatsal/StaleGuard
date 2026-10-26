@@ -116,7 +116,7 @@ That's it — three files, no extra infrastructure, no CI changes.
 | CDN strips `ETag` | Falls back to `Last-Modified` automatically |
 | Both headers missing | No reload triggered (nothing to compare against) |
 | Multiple tabs open | Each tab checks and reloads independently on its own focus event |
-| Auth via MSAL / sessionStorage | Survives the reload — sessionStorage is preserved across `location.reload()` |
+| Auth via sessionStorage | Survives the reload — sessionStorage is preserved across `location.reload()` |
 
 ## Verifying it works
 

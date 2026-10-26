@@ -8,6 +8,7 @@ import { HowItWorks } from "./pages/HowItWorks";
 import { Implementation } from "./pages/Implementation";
 import { Diagnostics } from "./pages/Diagnostics";
 import { EdgeCases } from "./pages/EdgeCases";
+import { NextJs } from "./pages/NextJs";
 
 function NotFound() {
   return (
@@ -31,6 +32,7 @@ function App() {
   if (route === "/") page = <Home />;
   else if (route === "/how-it-works") page = <HowItWorks />;
   else if (route === "/implementation") page = <Implementation />;
+  else if (route === "/nextjs") page = <NextJs />;
   else if (route === "/diagnostics")
     page = <Diagnostics versionCheck={versionCheck} />;
   else if (route === "/edge-cases") page = <EdgeCases />;

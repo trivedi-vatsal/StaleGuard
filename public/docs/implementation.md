@@ -1,6 +1,8 @@
-# Implementation
+# Vite recipe (static host)
 
 Three files. Copy, paste, done. No build plugins, no CI changes, no extra infrastructure.
+
+For Next.js App Router in a self-hosted container, use [nextjs-app-router.md](./nextjs-app-router.md) instead.
 
 For the complete guide with every code block (recommended for AI agents), use [AGENT_GUIDE.md](../AGENT_GUIDE.md).
 

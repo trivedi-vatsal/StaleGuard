@@ -23,10 +23,17 @@ export const pages: RouteDef[] = [
   },
   {
     path: "/implementation",
-    label: "Implementation",
-    eyebrow: "Implementation",
+    label: "Vite recipe",
+    eyebrow: "Vite recipe",
     heading: "Three files. Copy, paste, done.",
-    lede: "No build plugins, no CI changes, no extra infrastructure. Copy each snippet in order and ship it in one PR.",
+    lede: "Static host + Vite: one cache header, one hook, reload on tab focus. No build plugins or extra infrastructure.",
+  },
+  {
+    path: "/nextjs",
+    label: "Next.js recipe",
+    eyebrow: "Next.js recipe",
+    heading: "App Router, self-hosted",
+    lede: "Standalone Docker: /api/version, focus check, and Next deploymentId — layered protection without polling.",
   },
   {
     path: "/diagnostics",

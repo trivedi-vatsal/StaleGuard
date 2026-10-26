@@ -20,5 +20,5 @@ Six steps, one reload — from a fresh deploy to a silent refresh with no banner
 | Polling / timers | no |
 | Network cost | 1 HEAD request per tab focus |
 | User interaction | none required |
-| Auth impact | None — MSAL uses sessionStorage, survives reload |
+| Auth impact | None — sessionStorage-backed auth survives reload |
 | Failure behaviour | Silent — offline / errors swallowed |

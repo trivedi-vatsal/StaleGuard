@@ -22,6 +22,6 @@ Each tab reloads independently on its own focus event.
 
 No reload is triggered — there is nothing reliable to compare against.
 
-## Auth via MSAL / sessionStorage
+## Auth via sessionStorage
 
 Survives `window.location.reload()` because `sessionStorage` is preserved across reload on the same tab.

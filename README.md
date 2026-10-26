@@ -1,6 +1,6 @@
 # StaleGuard
 
-This repo is a small Vite + React + TypeScript project that demonstrates silent deployment refreshes for stale tabs.
+This repo is a Vite + React + TypeScript site that documents and demonstrates silent deployment refreshes for stale tabs. It ships **two recipes**: **Vite + static host** (this demo) and **Next.js App Router (self-hosted)**.
 
 ![StaleGuard preview](public/og-image.svg)
 
@@ -36,7 +36,8 @@ The docs site is a client-rendered SPA (`#/implementation` and other hash routes
 
 - [`llms.txt`](public/llms.txt) — index of plain-text docs (also at `https://trivedi-vatsal.github.io/StaleGuard/llms.txt` when deployed)
 - [`llms-full.txt`](public/llms-full.txt) — single-file export (regenerated on `npm run build`)
-- [`AGENT_GUIDE.md`](public/AGENT_GUIDE.md) — full implementation guide for AI agents
+- [`AGENT_GUIDE.md`](public/AGENT_GUIDE.md) — full Vite recipe for AI agents
+- [`public/docs/nextjs-app-router.md`](public/docs/nextjs-app-router.md) — full Next.js App Router (self-hosted) guide
 - [`public/docs/`](public/docs/) — markdown exports of each doc page
 
 ## Local development

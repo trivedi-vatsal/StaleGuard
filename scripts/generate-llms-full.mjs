@@ -22,6 +22,10 @@ const sections = [
     "docs/edge-cases.md",
     readFileSync(join(publicDir, "docs/edge-cases.md"), "utf8"),
   ],
+  [
+    "docs/nextjs-app-router.md",
+    readFileSync(join(publicDir, "docs/nextjs-app-router.md"), "utf8"),
+  ],
 ];
 
 const body = sections
