@@ -11,7 +11,7 @@ if (tag !== baseline) {
   window.location.reload();
 }`;
 
-const agentGuideUrl = "https://vatsal.xyz/StaleGuard/AGENT_GUIDE.md";
+const agentGuideUrl = new URL("AGENT_GUIDE.md", document.baseURI).href;
 
 const agentPrompt = `Fetch ${agentGuideUrl} and follow it to implement the StaleGuard silent-reload-on-stale-deploy pattern in this React project.`;
 

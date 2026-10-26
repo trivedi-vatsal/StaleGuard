@@ -1,0 +1,26 @@
+# StaleGuard
+
+> Silent stale-build detection for Vite + React. One hook, one cache header, reload on tab focus.
+
+The site UI is a client-rendered SPA. Hash routes such as `#/implementation` are not sent to the server, so tools that only fetch HTML cannot read those pages. Use the plain-text resources below instead.
+
+## Start here
+
+- [Agent implementation guide](AGENT_GUIDE.md): Self-contained copy-paste guide (three files, full code) for AI agents and developers
+- [Full documentation export](llms-full.txt): All doc pages in one file for single-request ingestion
+
+## Doc pages
+
+- [How it works](docs/how-it-works.md): Flow from deploy to silent reload
+- [Implementation](docs/implementation.md): Three-file setup overview (links to the agent guide for full snippets)
+- [Edge cases](docs/edge-cases.md): Failure modes and how the hook handles them
+
+## Source and repository
+
+- [README](https://github.com/trivedi-vatsal/StaleGuard/blob/main/README.md): Local dev, hosting, and testing
+- [useVersionCheck.ts](https://github.com/trivedi-vatsal/StaleGuard/blob/main/src/hooks/useVersionCheck.ts): Production hook with diagnostics support
+- [staticwebapp.config.json](https://github.com/trivedi-vatsal/StaleGuard/blob/main/public/staticwebapp.config.json): Azure SWA cache header for index.html
+
+## Optional
+
+- [Human site (SPA)](./): Interactive demo and live diagnostics panel

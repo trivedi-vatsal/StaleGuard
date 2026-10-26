@@ -30,6 +30,15 @@ StaleGuard describes the goal directly: it guards users from silently continuing
 - `public/404.html`: fallback page for static hosting
 - `.github/workflows/deploy-pages.yml`: GitHub Pages deployment workflow
 
+## LLM-readable documentation
+
+The docs site is a client-rendered SPA (`#/implementation` and other hash routes are not visible to plain HTTP fetch). Static, machine-readable copies live under `public/` and are published at the site root:
+
+- [`llms.txt`](public/llms.txt) — index of plain-text docs (also at `https://trivedi-vatsal.github.io/StaleGuard/llms.txt` when deployed)
+- [`llms-full.txt`](public/llms-full.txt) — single-file export (regenerated on `npm run build`)
+- [`AGENT_GUIDE.md`](public/AGENT_GUIDE.md) — full implementation guide for AI agents
+- [`public/docs/`](public/docs/) — markdown exports of each doc page
+
 ## Local development
 
 ```bash

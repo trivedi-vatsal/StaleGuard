@@ -83,7 +83,9 @@ export function Implementation() {
 
       <p className="step-note">
         Prefer to let an AI agent do it? Grab the{" "}
-        <a href="#/">ready-made prompt</a> on the homepage.
+        <a href="#/">ready-made prompt</a> on the homepage, or fetch{" "}
+        <a href="./AGENT_GUIDE.md">AGENT_GUIDE.md</a> /{" "}
+        <a href="./llms.txt">llms.txt</a> directly (plain text, no JavaScript).
       </p>
 
       <div className="step-card">

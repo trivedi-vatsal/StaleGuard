@@ -1,0 +1,245 @@
+# StaleGuard — full documentation export
+
+Generated from repository markdown under public/.
+
+---
+
+<!-- AGENT_GUIDE.md -->
+
+# Implementing the StaleGuard pattern in a React app
+
+This is a self-contained guide for an AI coding agent (or a developer) to add
+**silent stale-deployment recovery** to an existing Vite + React + TypeScript
+project. No build plugins, no polling timers, no user-facing prompts.
+
+## What this does
+
+Vite fingerprints JS/CSS bundle filenames on every build, but `index.html`
+itself changes content on each deploy (it references the new hashed bundles).
+That content change naturally produces a new `ETag` (or `Last-Modified`) header
+on most static hosts.
+
+The pattern: store the tag for `index.html` on first load, and re-check it
+every time the tab regains focus. If the tag changed, the deploy moved on
+without the user — reload immediately and silently with `window.location.reload()`.
+
+## Prerequisites
+
+- A Vite + React + TypeScript project
+- A static host that serves `index.html` with `ETag` and/or `Last-Modified`
+  headers (Azure Static Web Apps, GitHub Pages, Netlify, Vercel, etc.)
+
+## Step 1 — disable caching for `index.html` (host-specific)
+
+The freshness check only works if the browser is forced to revalidate
+`index.html` on every request instead of serving it from cache.
+
+### Azure Static Web Apps
+
+Add (or merge into) `public/staticwebapp.config.json`:
+
+```json
+{
+  "routes": [
+    {
+      "route": "/index.html",
+      "headers": {
+        "Cache-Control": "no-cache, no-store, must-revalidate"
+      }
+    }
+  ]
+}
+```
+
+### Other static hosts (GitHub Pages, Netlify, Vercel, S3/CloudFront, nginx, ...)
+
+Set `Cache-Control: no-cache, no-store, must-revalidate` on `index.html`
+specifically (leave hashed assets in `assets/` cached aggressively — they are
+immutable). If you cannot control headers (e.g. plain GitHub Pages), the hook
+below still works using `Last-Modified`, but checks will be less precise
+because some CDNs round timestamps to whole seconds.
+
+## Step 2 — add the hook
+
+Create `src/hooks/useVersionCheck.ts`:
+
+```ts
+import { useEffect, useRef } from "react";
+
+export const useVersionCheck = () => {
+  const currentTag = useRef<string | null>(null);
+
+  useEffect(() => {
+    const checkVersion = async () => {
+      try {
+        const res = await fetch(new URL("index.html", document.baseURI), {
+          method: "HEAD",
+          cache: "no-store",
+        });
+
+        const nextTag =
+          res.headers.get("ETag") ?? res.headers.get("Last-Modified");
+
+        if (!currentTag.current) {
+          currentTag.current = nextTag; // baseline - no reload
+          return;
+        }
+
+        if (nextTag && currentTag.current !== nextTag) {
+          window.location.reload(); // new deploy detected
+        }
+      } catch {
+        // offline / network failures are ignored
+      }
+    };
+
+    void checkVersion();
+    window.addEventListener("focus", checkVersion);
+    return () => window.removeEventListener("focus", checkVersion);
+  }, []);
+};
+```
+
+## Step 3 — call it once at the app root
+
+In `src/App.tsx` (or wherever your top-level component lives):
+
+```ts
+import { useVersionCheck } from "./hooks/useVersionCheck";
+
+const App = () => {
+  useVersionCheck(); // call once at root, no props, no config
+  // ...rest of the app
+};
+```
+
+That's it — three files, no extra infrastructure, no CI changes.
+
+## How it behaves
+
+| Scenario | Outcome |
+|---|---|
+| User never switches tabs | No reload — they're already on the latest load they fetched |
+| User is offline on focus | `fetch` throws, caught silently — no crash, no banner |
+| CDN strips `ETag` | Falls back to `Last-Modified` automatically |
+| Both headers missing | No reload triggered (nothing to compare against) |
+| Multiple tabs open | Each tab checks and reloads independently on its own focus event |
+| Auth via MSAL / sessionStorage | Survives the reload — sessionStorage is preserved across `location.reload()` |
+
+## Verifying it works
+
+1. `npm run build && npm run preview`
+2. Open the preview URL, confirm a baseline tag is captured (add temporary
+   logging if needed — the production hook above is silent by design)
+3. Make a visible change, run `npm run build` again
+4. Switch to another tab, then focus the original tab again
+5. Confirm the page reloads silently and shows the new build
+
+## Notes for the agent
+
+- Do not add a visible banner, toast, or confirmation prompt — the entire
+  point of this pattern is a frictionless, invisible refresh.
+- Do not add polling/`setInterval` — focus-triggered checks are sufficient and
+  cheaper (one `HEAD` request per tab focus, no body transferred).
+- Keep the hook dependency-free (no extra libraries) so it can be dropped into
+  any React project unchanged.
+
+
+---
+
+<!-- docs/how-it-works.md -->
+
+# How it works
+
+Six steps, one reload — from a fresh deploy to a silent refresh with no banner, no prompt, and no timer.
+
+## Flow
+
+1. **New build deployed** — Vite embeds new hashed asset filenames into `index.html`.
+2. **ETag changes on Azure SWA** — File content change triggers a new `ETag` automatically; no build plugins required.
+3. **User switches back to tab** — `window` `focus` event fires; the hook wakes up.
+4. **HEAD /index.html (no-store)** — Single lightweight request; no body transferred.
+5. **ETag differs** — `window.location.reload()` — silent, no prompt.
+6. **ETag same** — Do nothing. Zero side effects; the user continues uninterrupted.
+
+## Properties at a glance
+
+| Property | Value |
+| --- | --- |
+| Extra infrastructure | none |
+| Build plugin required | no |
+| Polling / timers | no |
+| Network cost | 1 HEAD request per tab focus |
+| User interaction | none required |
+| Auth impact | None — MSAL uses sessionStorage, survives reload |
+| Failure behaviour | Silent — offline / errors swallowed |
+
+
+---
+
+<!-- docs/implementation.md -->
+
+# Implementation
+
+Three files. Copy, paste, done. No build plugins, no CI changes, no extra infrastructure.
+
+For the complete guide with every code block (recommended for AI agents), use [AGENT_GUIDE.md](../AGENT_GUIDE.md).
+
+## Step 01 — `staticwebapp.config.json`
+
+Tell Azure Static Web Apps never to cache `index.html` at the CDN or browser level. This ensures every request for the entry file reaches the origin, allowing the `ETag` to change when a new build is deployed without needing any build plugin or CI configuration.
+
+## Step 02 — `useVersionCheck.ts`
+
+Drop this hook at your React root. On mount and on every tab-focus event it fires a single `HEAD` `/index.html` request with `cache: no-store`. It captures the `ETag` (or `Last-Modified` as a fallback) as a baseline. If a subsequent check returns a different tag, the page silently reloads with no banner, no prompt, and no polling timer.
+
+## Step 03 — `App.tsx`
+
+Call `useVersionCheck` once at your application root. No props, no context, no configuration needed. The hook self-manages its event listeners and cleans up on unmount automatically.
+
+## Files to copy
+
+| Path | Purpose |
+| --- | --- |
+| `public/staticwebapp.config.json` | `Cache-Control` for `/index.html` on Azure SWA |
+| `src/hooks/useVersionCheck.ts` | Focus-triggered version check |
+| `src/App.tsx` | Call the hook once at the root |
+
+Full source for each file is in [AGENT_GUIDE.md](../AGENT_GUIDE.md).
+
+## AI agent shortcut
+
+On the live site homepage, copy the agent prompt that points at `AGENT_GUIDE.md` on the same origin as the deployed site.
+
+
+---
+
+<!-- docs/edge-cases.md -->
+
+# Edge cases
+
+Where it could break — and why it doesn't. Every failure mode is accounted for, not papered over.
+
+## User never switches tabs
+
+Reload does not trigger. Acceptable — they are on the latest load.
+
+## User is offline on focus
+
+`fetch` throws, caught silently. No crash, no noise.
+
+## CDN strips ETag
+
+Fallback to `Last-Modified` header already handled in the hook.
+
+## Multiple tabs open
+
+Each tab reloads independently on its own focus event.
+
+## Both ETag and Last-Modified missing
+
+No reload is triggered — there is nothing reliable to compare against.
+
+## Auth via MSAL / sessionStorage
+
+Survives `window.location.reload()` because `sessionStorage` is preserved across reload on the same tab.
