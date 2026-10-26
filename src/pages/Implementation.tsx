@@ -1,6 +1,7 @@
 import { PageHeader } from "../components/PageHeader";
 import { PageNav } from "../components/PageNav";
 import { DocsNav } from "../components/DocsNav";
+import { RecipePicker } from "../components/RecipePicker";
 import { FileExplorer } from "../components/FileExplorer";
 import { findPage } from "../routes";
 
@@ -75,6 +76,7 @@ export function Implementation() {
   return (
     <div className="container page">
       <DocsNav current={page.path} />
+      <RecipePicker current={page.path} />
       <PageHeader
         eyebrow={page.eyebrow}
         heading={page.heading}
@@ -83,7 +85,9 @@ export function Implementation() {
 
       <p className="step-note">
         Prefer to let an AI agent do it? Grab the{" "}
-        <a href="#/">ready-made prompt</a> on the homepage.
+        <a href="#/">ready-made prompt</a> on the homepage, or fetch{" "}
+        <a href="./AGENT_GUIDE.md">AGENT_GUIDE.md</a> /{" "}
+        <a href="./llms.txt">llms.txt</a> directly (plain text, no JavaScript).
       </p>
 
       <div className="step-card">

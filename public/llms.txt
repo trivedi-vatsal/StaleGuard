@@ -1,0 +1,27 @@
+# StaleGuard
+
+> Silent stale-build detection for React apps. Two recipes: Vite + static host, and Next.js App Router (self-hosted). Reload on tab focus — no banners, no polling.
+
+The site UI is a client-rendered SPA. Hash routes such as `#/implementation` are not sent to the server, so tools that only fetch HTML cannot read those pages. Use the plain-text resources below instead.
+
+## Recipes (start here)
+
+- [Vite + static host — agent guide](AGENT_GUIDE.md): Three files, `index.html` ETag / Last-Modified, Azure SWA cache header
+- [Next.js App Router (self-hosted)](docs/nextjs-app-router.md): `/api/version`, focus hook, `NEXT_DEPLOYMENT_ID`, Docker — full guide for agents and developers
+- [Full documentation export](llms-full.txt): All doc pages in one file for single-request ingestion
+
+## Doc pages (site walkthrough)
+
+- [How it works](docs/how-it-works.md): Flow from deploy to silent reload (Vite-oriented demo)
+- [Vite recipe](docs/implementation.md): Three-file setup overview (links to the agent guide for full snippets)
+- [Edge cases](docs/edge-cases.md): Failure modes and how the hook handles them
+
+## Source and repository
+
+- [README](https://github.com/trivedi-vatsal/StaleGuard/blob/main/README.md): Local dev, hosting, and testing
+- [useVersionCheck.ts](https://github.com/trivedi-vatsal/StaleGuard/blob/main/src/hooks/useVersionCheck.ts): Demo hook (Vite recipe) with diagnostics support
+- [staticwebapp.config.json](https://github.com/trivedi-vatsal/StaleGuard/blob/main/public/staticwebapp.config.json): Azure SWA cache header for index.html
+
+## Optional
+
+- [Human site (SPA)](./): Interactive demo and live diagnostics panel
