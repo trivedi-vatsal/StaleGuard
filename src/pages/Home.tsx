@@ -12,11 +12,16 @@ if (tag !== baseline) {
   window.location.reload();
 }`;
 
-const llmsUrl = new URL("llms.txt", document.baseURI).href;
+const agentGuideUrl = "https://vatsal.xyz/StaleGuard/AGENT_GUIDE.md";
 
-const agentPrompt = `Fetch ${llmsUrl} for the doc index. Use AGENT_GUIDE.md for Vite + static host, or docs/nextjs-app-router.md for Next.js App Router (self-hosted). Implement the StaleGuard silent-reload-on-stale-deploy pattern for this project.`;
+const agentPrompt = `Fetch ${agentGuideUrl} and follow it to implement the StaleGuard silent-reload-on-stale-deploy pattern in this React project.`;
 
-const exploreCards = pages.filter((page) => page.path !== "/");
+const exploreCards = pages.filter(
+  (page) =>
+    page.path !== "/" &&
+    page.path !== "/implementation" &&
+    page.path !== "/nextjs",
+);
 
 const scrollToAgentPrompt = () => {
   document
@@ -28,10 +33,9 @@ export function Home() {
   return (
     <div className="container">
       <section className="hero">
-        <div className="hero-glow" aria-hidden="true" />
         <button
           type="button"
-          className="hero-badge glass"
+          className="hero-badge"
           onClick={scrollToAgentPrompt}
         >
           <span className="badge-dot" aria-hidden="true" />
@@ -41,14 +45,13 @@ export function Home() {
         <h1>
           No stale
           <br />
-          <span className="text-gradient">builds.</span>
+          <span className="text-accent">builds.</span>
         </h1>
         <p className="hero-desc">
           One hook. One cache header.
-          <br />
-          <em>Silent reload on tab focus.</em> No banners, no polling,
-          <br />
-          no user friction. sessionStorage-backed auth survives reload.
+          <em> Silent reload on tab focus.</em> No banners, no polling, no user
+          friction. Two recipes: Vite static hosts and self-hosted Next.js App
+          Router.
         </p>
         <div className="cta-row">
           <a href="#/implementation" className="btn btn-primary btn-lg">
@@ -61,10 +64,10 @@ export function Home() {
             Live diagnostics
           </a>
         </div>
-        <p className="hero-stack">Vite · Next.js · React</p>
+        <p className="hero-stack">Vite · Next.js · Azure SWA · Docker</p>
 
         <div className="hero-panel-wrap">
-          <div className="hero-panel glass">
+          <div className="hero-panel">
             <div className="hero-pane">
               <div className="pane-head">
                 <WindowDots />
@@ -99,20 +102,31 @@ export function Home() {
         </div>
       </section>
 
+      <section className="home-recipes" aria-labelledby="home-recipes-title">
+        <div className="home-recipes-head">
+          <span className="eyebrow">Recipes</span>
+          <h2 id="home-recipes-title">Pick your stack</h2>
+          <p className="lede">
+            Same idea on both paths: detect a new deploy on tab focus, reload
+            quietly. Copy the files for your host — no third-party service.
+          </p>
+        </div>
+        <RecipePicker />
+      </section>
+
       <div className="divider" />
 
       <section id="agent-prompt" className="agent-feature">
-        <div className="agent-feature-glow" aria-hidden="true" />
         <div className="agent-feature-grid">
           <div>
             <span className="eyebrow">AI agent shortcut</span>
             <h2>
-              Skip the docs. <span className="text-gradient">Paste this.</span>
+              Skip the docs. <span className="text-accent">Paste this.</span>
             </h2>
             <p className="lede">
-              Drop this prompt into Claude Code, Cursor, or any agent that
-              can fetch URLs. It points at llms.txt and the right recipe guide
-              (Vite or Next.js) — no copying code blocks by hand.
+              Drop this prompt into Claude Code, Cursor, or any agent that can
+              fetch URLs. It points at a self-contained guide that wires up the
+              pattern for you — no copying code blocks by hand.
             </p>
             <div className="agent-tool-row">
               <span className="tool-pill">Claude Code</span>
@@ -129,28 +143,15 @@ export function Home() {
 
       <div className="divider" />
 
-      <section className="recipes-section">
-        <div className="subsection-label">Recipes</div>
-        <p className="lede recipes-lede">
-          Two first-class guides: static Vite on Azure SWA or GitHub Pages, and
-          self-hosted Next.js in Docker.
-        </p>
-        <RecipePicker />
-      </section>
-
-      <div className="divider" />
-
-      <section style={{ marginBottom: "4rem" }}>
-        <div className="subsection-label">Explore</div>
+      <section style={{ marginBottom: "var(--space-16)" }}>
+        <div className="subsection-label">More in the docs</div>
         <div className="explore-grid">
           {exploreCards.map((page) => (
             <a className="explore-card" href={`#${page.path}`} key={page.path}>
               <span className="eyebrow">{page.eyebrow}</span>
               <h3>{page.heading}</h3>
               <p>{page.lede}</p>
-              <span className="explore-arrow" aria-hidden="true">
-                →
-              </span>
+              <span className="explore-arrow" aria-hidden="true">→</span>
             </a>
           ))}
         </div>

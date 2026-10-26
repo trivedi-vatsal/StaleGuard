@@ -1,7 +1,6 @@
 import { PageHeader } from "../components/PageHeader";
 import { PageNav } from "../components/PageNav";
-import { DocsNav } from "../components/DocsNav";
-import { RecipePicker } from "../components/RecipePicker";
+import { DocsShell } from "../components/DocsShell";
 import { FileExplorer } from "../components/FileExplorer";
 import { findPage } from "../routes";
 
@@ -74,9 +73,7 @@ const files = [
 
 export function Implementation() {
   return (
-    <div className="container page">
-      <DocsNav current={page.path} />
-      <RecipePicker current={page.path} />
+    <DocsShell current={page.path}>
       <PageHeader
         eyebrow={page.eyebrow}
         heading={page.heading}
@@ -133,6 +130,6 @@ export function Implementation() {
       <FileExplorer files={files} />
 
       <PageNav current={page.path} />
-    </div>
+    </DocsShell>
   );
 }

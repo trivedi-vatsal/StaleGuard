@@ -1,6 +1,6 @@
 import { PageHeader } from "../components/PageHeader";
 import { PageNav } from "../components/PageNav";
-import { DocsNav } from "../components/DocsNav";
+import { DocsShell } from "../components/DocsShell";
 import { findPage } from "../routes";
 
 const page = findPage("/how-it-works")!;
@@ -50,8 +50,7 @@ const properties = [
 
 export function HowItWorks() {
   return (
-    <div className="container page">
-      <DocsNav current={page.path} />
+    <DocsShell current={page.path}>
       <PageHeader
         eyebrow={page.eyebrow}
         heading={page.heading}
@@ -91,6 +90,6 @@ export function HowItWorks() {
       </div>
 
       <PageNav current={page.path} />
-    </div>
+    </DocsShell>
   );
 }

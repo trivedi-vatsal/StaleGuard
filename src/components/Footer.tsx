@@ -32,8 +32,8 @@ export function Footer() {
           <div className="footer-brand">
             <Logo />
             <p className="footer-tagline">
-              A drop-in hook for silent stale-deployment recovery in Vite +
-              React apps - no banners, no polling, no user friction.
+              Silent stale-deploy recovery for Vite static hosts and self-hosted
+              Next.js — reload on tab focus, no banners or polling.
             </p>
           </div>
           {columns.map(({ title, links }) => (
